@@ -1,0 +1,6 @@
+{
+  "name": "India FIRE Bento-Planner",
+  "description": "Apple-inspired Bento Box canvas FIRE simulator and spreadsheet calculation engine for Indian financial independence.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

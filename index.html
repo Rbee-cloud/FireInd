@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function() {
+        try {
+          var _origFetch = typeof window.fetch === 'function' ? window.fetch.bind(window) : null;
+          var _currentFetch = function() {
+            return (_origFetch || window.fetch).apply(window, arguments);
+          };
+          try {
+            Object.defineProperty(window, 'fetch', {
+              get: function() { return _currentFetch; },
+              set: function(v) { _currentFetch = v; },
+              configurable: true,
+              enumerable: true
+            });
+          } catch (e1) {
+            try {
+              Object.defineProperty(Window.prototype, 'fetch', {
+                get: function() { return _currentFetch; },
+                set: function(v) { _currentFetch = v; },
+                configurable: true,
+                enumerable: true
+              });
+            } catch (e2) {}
+          }
+        } catch (_) {}
+
+        window.addEventListener('error', function(event) {
+          if (event && event.message && event.message.indexOf('fetch') !== -1 && event.message.indexOf('getter') !== -1) {
+            if (event.preventDefault) event.preventDefault();
+            if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+            return true;
+          }
+        }, true);
+      })();
+    </script>
+    <title>India FIRE Bento-Planner</title>
+    <meta name="description" content="Apple-inspired Bento Box canvas FIRE simulator and spreadsheet calculation engine for Indian financial independence." />
+    <meta property="og:title" content="India FIRE Bento-Planner" />
+    <meta property="og:description" content="Apple-inspired Bento Box canvas FIRE simulator and spreadsheet calculation engine for Indian financial independence." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
